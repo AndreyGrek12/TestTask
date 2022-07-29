@@ -3,10 +3,10 @@ package requests;
 import static io.restassured.RestAssured.*;
 
 public class DiskRequests extends BaseRequest{
-    public static void createFolder() {
+    public static void createFolder(String folderName) {
         given()
                 .spec(baseRequest)
-                .queryParam("path", "/Новая папка")
+                .queryParam("path", "/" + folderName)
         .when()
                 .put()
         .then()
@@ -14,11 +14,11 @@ public class DiskRequests extends BaseRequest{
                 .statusCode(201);
     }
 
-    public static void copyFile () {
+    public static void copyFile (String folderName) {
         given()
                 .spec(baseRequest)
                 .queryParam("from", "/Файл для копирования.docx")
-                .queryParam("path", "/Новая папка/Файл для копирования.docx")
+                .queryParam("path", "/" + folderName + "/Файл для копирования.docx")
         .when()
                 .post("/copy")
         .then()
@@ -26,11 +26,11 @@ public class DiskRequests extends BaseRequest{
                 .statusCode(201);
     }
 
-    public static void renameFile() {
+    public static void renameFile(String folderName) {
         given()
                 .spec(baseRequest)
-                .queryParam("from", "/Новая папка/Файл для копирования.docx")
-                .queryParam("path", "/Новая папка/Новое имя.docx")
+                .queryParam("from", "/" + folderName + "/Файл для копирования.docx")
+                .queryParam("path", "/" + folderName + "/Новое имя.docx")
         .when()
                 .post("/move")
         .then()

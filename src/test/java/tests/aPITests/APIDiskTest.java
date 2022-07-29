@@ -7,9 +7,11 @@ public class APIDiskTest {
 
     @Test
     public void copyFileTest() {
-        DiskRequests.createFolder();
-        DiskRequests.copyFile();
-        DiskRequests.renameFile();
-        DiskRequests.deleteFolder("/Новая папка", 202);
+        String folderName = "папка";
+
+        DiskRequests.createFolder(folderName);
+        DiskRequests.copyFile(folderName);
+        DiskRequests.renameFile(folderName);
+        DiskRequests.deleteFolder("/" + folderName, 202);
     }
 }
