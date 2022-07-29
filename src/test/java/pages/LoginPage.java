@@ -27,28 +27,28 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    public LoginPage inputLogin (String login) {
+    public LoginPage inputLogin(String login) {
         Waiters.waitForVisibility(5, driver, loginField);
         loginField.sendKeys(login);
         return this;
     }
 
-    public LoginPage confirmLogin () {
+    public LoginPage confirmLogin() {
         submitLoginButton.click();
         return this;
     }
 
-    public LoginPage inputPassword (String password) {
+    public LoginPage inputPassword(String password) {
         passwordField.sendKeys(password);
         return this;
     }
 
-    public MainPage confirmPassword () {
+    public MainPage confirmPassword() {
         submitLoginButton.click();
         return new MainPage(driver);
     }
 
-    public LoginPage chooseMail () {
+    public LoginPage chooseMail() {
         Waiters.waitForVisibility(5,driver,mailButton);
         mailButton.click();
         return this;

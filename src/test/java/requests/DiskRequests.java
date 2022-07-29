@@ -1,6 +1,8 @@
 package requests;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class DiskRequests extends BaseRequest{
     public static void createFolder(String folderName) {
@@ -11,10 +13,13 @@ public class DiskRequests extends BaseRequest{
                 .put()
         .then()
                 .assertThat()
-                .statusCode(201);
+                .statusCode(201)
+                .body("method", equalTo("GET"))
+                .body("href", notNullValue())
+                .body("templated", equalTo(false));
     }
 
-    public static void copyFile (String folderName) {
+    public static void copyFile(String folderName) {
         given()
                 .spec(baseRequest)
                 .queryParam("from", "/Файл для копирования.docx")
@@ -23,7 +28,10 @@ public class DiskRequests extends BaseRequest{
                 .post("/copy")
         .then()
                 .assertThat()
-                .statusCode(201);
+                .statusCode(201)
+                .body("method", equalTo("GET"))
+                .body("href", notNullValue())
+                .body("templated", equalTo(false));
     }
 
     public static void renameFile(String folderName) {
@@ -35,10 +43,13 @@ public class DiskRequests extends BaseRequest{
                 .post("/move")
         .then()
                 .assertThat()
-                .statusCode(201);
+                .statusCode(201)
+                .body("method", equalTo("GET"))
+                .body("href", notNullValue())
+                .body("templated", equalTo(false));
     }
 
-    public static void deleteFolder(String filePath, int statusCode) {
+    public static void deleteFolder(String filePath) {
         given()
                 .spec(baseRequest)
                 .queryParam("path", filePath)
@@ -46,6 +57,9 @@ public class DiskRequests extends BaseRequest{
                 .delete()
         .then()
                 .assertThat()
-                .statusCode(statusCode);
+                .statusCode(202)
+                .body("method", equalTo("GET"))
+                .body("href", notNullValue())
+                .body("templated", equalTo(false));
     }
 }

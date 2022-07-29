@@ -14,9 +14,10 @@ public class DiskTest extends BaseTest {
     public LoginPage loginPage;
     public DiskPage diskPage;
     public DockviewerPage dockviewerPage;
+    String folderName = "папка";
 
     @BeforeMethod
-    public void setPages() {
+    public void setup() {
         mainPage = new MainPage(driver);
         diskPage = new DiskPage(driver);
         loginPage = new LoginPage(driver);
@@ -34,7 +35,7 @@ public class DiskTest extends BaseTest {
     }
 
     @Test
-    public void copyFileTest () {
+    public void copyFileTest() {
         diskPage.clickCreateButton()
                 .createFolder()
                 .confirmFolderCreation()
@@ -47,12 +48,15 @@ public class DiskTest extends BaseTest {
         Assert.assertEquals(diskPage.getFileName(),
                 "Файл для копирования.docx",
                 "Названия не совпадают");
-        DiskRequests.deleteFolder("/Новая папка", 202);
     }
 
     @Test
-    public void uploadFileTest () {
-        diskPage.uploadFile()
+    public void uploadFileTest() {
+        diskPage.clickCreateButton()
+                .createFolder()
+                .confirmFolderCreation()
+                .openFolder()
+                .uploadFile()
                 .rightClickOnFileToUpload()
                 .watchFile();
         WindowUtils.focusTab(driver, 3);
@@ -60,11 +64,11 @@ public class DiskTest extends BaseTest {
                 dockviewerPage.getText(),
                 "Текст не совпадает");
         WindowUtils.focusTab(driver,2);
-        DiskRequests.deleteFolder("/FileToUpload.txt", 204);
     }
 
     @AfterMethod
     public void logoutAndCloseChrome() {
+        DiskRequests.deleteFolder("/Новая папка");
         diskPage.openProfileMenu()
                 .logout();
         driver.quit();

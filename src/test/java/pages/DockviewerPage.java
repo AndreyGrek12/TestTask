@@ -17,7 +17,7 @@ public class DockviewerPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getText () {
+    public String getText() {
         return text.getText();
     }
 }

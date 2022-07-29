@@ -20,12 +20,12 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public LoginPage openLoginScreen () {
+    public LoginPage openLoginScreen() {
         loginButton.click();
         return new LoginPage(driver);
     }
 
-    public void openDisk () {
+    public void openDisk() {
         diskButton.click();
     }
 }
